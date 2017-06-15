@@ -1,0 +1,41 @@
+npm i -S rxjs@^5.0.1 bootstrap jquery moment zone.js systemjs reflect-metadata core-js
+npm i -S @angular/common @angular/compiler @angular/core @angular/forms @angular/http @angular/platform-browser
+npm i -S @angular/platform-browser-dynamic @angular/router @angular/upgrade
+
+// rxjs 6.0.0 is not fit to this pj.
+npm i -S rxjs@^5.0.1
+
+npm uninstall --save core-js rxjs bootstrap jquery moment zone.js systemjs @angular/common @angular/compiler @angular/core @angular/forms @angular/http @angular/platform-browser @angular/platform-browser-dynamic @angular/router @angular/upgrade
+
+
+// npm i -D babel-core babel-plugin-angularjs-annotate babel-plugin-transform-decorators babel-preset-es2015
+npm i -D @types/core-js concurrently lite-server typescript tslint codelyzer
+
+npm uninstall --save-dev @types/core-js concurrently lite-server typescript tslint codelyzer
+
+angular 4 events
+(focus)="myMethod()"  // An element has received focus
+(blur)="myMethod()"   // An element has lost focus
+
+(submit)="myMethod()"  // A submit button has been pressed
+
+(scroll)="myMethod()"
+
+(cut)="myMethod()"
+(copy)="myMethod()"
+(paste)="myMethod()"
+
+(keydown)="myMethod()"
+(keypress)="myMethod()"
+(keyup)="myMethod()"
+
+(mouseenter)="myMethod()"
+(mousedown)="myMethod()"
+(mouseup)="myMethod()"
+
+(click)="myMethod()"
+(dblclick)="myMethod()"
+
+(drag)="myMethod()"
+(dragover)="myMethod()"
+(drop)="myMethod()"

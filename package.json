@@ -1,0 +1,35 @@
+{
+  "name": "shared-bookmarks",
+  "version": "1.1.1",
+  "scripts": {
+    "ib": "tsc",
+    "dev": "tsc && concurrently \"tsc -w\" lite-server"
+  },
+  "dependencies": {
+    "@angular/common": "^4.2.2",
+    "@angular/compiler": "^4.2.2",
+    "@angular/core": "^4.2.2",
+    "@angular/forms": "^4.2.2",
+    "@angular/http": "^4.2.2",
+    "@angular/platform-browser": "^4.2.2",
+    "@angular/platform-browser-dynamic": "^4.2.2",
+    "@angular/router": "^4.2.2",
+    "@angular/upgrade": "^4.2.2",
+    "bootstrap": "^3.3.7",
+    "core-js": "^2.4.1",
+    "jquery": "^3.2.1",
+    "moment": "^2.18.1",
+    "reflect-metadata": "^0.1.10",
+    "rxjs": "^5.4.1",
+    "systemjs": "^0.20.14",
+    "zone.js": "^0.8.12"
+  },
+  "devDependencies": {
+    "@types/core-js": "^0.9.41",
+    "codelyzer": "^3.0.1",
+    "concurrently": "^3.4.0",
+    "lite-server": "^2.3.0",
+    "tslint": "^5.4.3",
+    "typescript": "^2.3.4"
+  }
+}
