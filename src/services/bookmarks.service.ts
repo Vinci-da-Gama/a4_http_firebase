@@ -35,7 +35,8 @@ export class BookmarksService {
     removeBookmark(bookmark: SingleBookmark) {
         const bmJson = JSON.stringify(bookmark);
         return this.http.delete(`${this.baseUrl}/bookmarks/${bookmark.id}.json`, bmJson)
-        .toPromise();
+            .map((res: Response) => res.json())
+            .catch((err: Response) => { throw err; });
     }
 
     private convertFirebaseObjToArray(parseResponse) {

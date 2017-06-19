@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SingleBookmark } from '../interface/bookmark.interface';
 
 // import { Observable } from 'rxjs/Observable';
@@ -22,12 +22,12 @@ import { SingleBookmark } from '../interface/bookmark.interface';
 						</a>
 					</td>
 					<td>
-						<button (click)="onBmarkRemove(eachBookmark)" type="button" class="btn btn-danger">
+						<!-- <button (click)="onBmEdit(eachBookmark)" type="button" class="btn btn-danger">
 							Update
-						</button>
+						</button> -->
 					</td>
 					<td>
-						<button (click)="onBmarkEdit(eachBookmark)" type="button" class="btn btn-warning">
+						<button (click)="onBmRemove(eachBookmark)" type="button" class="btn btn-warning">
 							Delete
 						</button>
 					</td>
@@ -39,5 +39,11 @@ import { SingleBookmark } from '../interface/bookmark.interface';
 export class BookmarksListComponent {
 
 	@Input() bookmarksList: SingleBookmark[] = [];
+	@Output() removeBmEventEmit = new EventEmitter();
+
+	onBmRemove(culledBookmark: SingleBookmark) {
+		console.log('45 -- list -- culledBookmark is: ', culledBookmark);
+		this.removeBmEventEmit.emit(culledBookmark);
+	}
 
 }

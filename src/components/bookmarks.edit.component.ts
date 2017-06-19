@@ -43,10 +43,10 @@ export class BookmarkEditComponent {
 		title: '',
 		url: ''
 	};
-	@Output() save = new EventEmitter();
+	@Output() saveBmEventEmit = new EventEmitter();
 
 	onBookmarkSave() {
-		this.save.emit(this.newBookmark);
+		this.saveBmEventEmit.emit(this.newBookmark);
 	}
 
 }
