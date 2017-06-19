@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { SingleBookmark } from '../interface/bookmark.interface';
+import { NewBookmark } from '../interface/newbookmark.interface';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -17,11 +18,25 @@ export class BookmarksService {
 
     constructor(private http: Http) { }
 
+    postNewBookmark(bookmark: NewBookmark) {
+        const bmJson = JSON.stringify(bookmark);
+        return this.http.post(`${this.baseUrl}/bookmarks.json`, bmJson)
+        .toPromise();
+    }
+
     getBookmarks(): Observable<SingleBookmark[]> {
         return this.http.get(`${this.baseUrl}/bookmarks.json`)
             .map((res: Response) => this.convertFirebaseObjToArray(res.json()))
             .catch((err: Response) => { throw err; });
     };
+
+
+
+    removeBookmark(bookmark: SingleBookmark) {
+        const bmJson = JSON.stringify(bookmark);
+        return this.http.delete(`${this.baseUrl}/bookmarks/${bookmark.id}.json`, bmJson)
+        .toPromise();
+    }
 
     private convertFirebaseObjToArray(parseResponse) {
         return Object.keys(parseResponse)
