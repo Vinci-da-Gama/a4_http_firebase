@@ -14,13 +14,27 @@ import 'rxjs/add/operator/catch';
 export class BookmarksService {
 
     private baseUrl = 'https://a4-test-db-14june2017.firebaseio.com';
+    private handleError (error: Response | any) {
+        // In a real world app, you might use a remote logging infrastructure
+        let errMsg: string;
+        if (error instanceof Response) {
+        const body = error.json() || '';
+        const err = body.error || JSON.stringify(body);
+        errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+        } else {
+        errMsg = error.message ? error.message : error.toString();
+        }
+        console.error(errMsg);
+        return Observable.throw(errMsg);
+    }
 
     constructor(private http: Http) { }
 
     postNewBookmark(bookmark: SingleBookmark) {
         const bmJson = JSON.stringify(bookmark);
         return this.http.post(`${this.baseUrl}/bookmarks.json`, bmJson)
-        .toPromise();
+        .toPromise()
+        .catch(this.handleError);
     }
 
     getBookmarks(): Observable<SingleBookmark[]> {
@@ -32,7 +46,8 @@ export class BookmarksService {
     updateBookmark(bookmark: SingleBookmark) {
         const bmJson = JSON.stringify(bookmark);
         return this.http.patch(`${this.baseUrl}/bookmarks/${bookmark.id}.json`, bmJson)
-        .toPromise();
+        .toPromise()
+        .catch(this.handleError);
     }
 
     removeBookmark(bookmark: SingleBookmark) {
@@ -42,7 +57,7 @@ export class BookmarksService {
         });
         return this.http.delete(`${this.baseUrl}/bookmarks/${bookmark.id}.json`, bmJson)
             .map((res: Response) => res.json())
-            .catch((err: Response) => { throw err; });
+            .catch(this.handleError);
     }
 
     private convertFirebaseObjToArray(parseResponse) {

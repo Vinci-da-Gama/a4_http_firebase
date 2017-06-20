@@ -30,6 +30,11 @@ export class BookmarksContainerComponent {
 	editableBookmark: Object = {};
 
 	constructor(private bookmarkService: BookmarksService) {
+		//////////////////////////////////////////////////////////////
+		// in this case, the handleError function is private.       //
+		// if handleError function is global, you can put it here.  //
+		// Then everybody can see it.                               //
+		//////////////////////////////////////////////////////////////
 		this.bmReload();
 	}
 

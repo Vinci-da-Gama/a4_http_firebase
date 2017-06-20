@@ -59,9 +59,9 @@ export class BookmarkEditComponent {
 	onFieldsClear() {
 		////////////////////////////////////////////////////////
 		// emit must pass sth, if nothing need to be passed,  //
-		// please pass null.                                  //
+		// please pass {}.                                    //
 		////////////////////////////////////////////////////////
-		this.clearBmEventEmit.emit(null);
+		this.clearBmEventEmit.emit({});
 	}
 
 }
