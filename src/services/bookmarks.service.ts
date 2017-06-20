@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { SingleBookmark } from '../interface/bookmark.interface';
-import { NewBookmark } from '../interface/newbookmark.interface';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -18,7 +17,7 @@ export class BookmarksService {
 
     constructor(private http: Http) { }
 
-    postNewBookmark(bookmark: NewBookmark) {
+    postNewBookmark(bookmark: SingleBookmark) {
         const bmJson = JSON.stringify(bookmark);
         return this.http.post(`${this.baseUrl}/bookmarks.json`, bmJson)
         .toPromise();
@@ -30,10 +29,17 @@ export class BookmarksService {
             .catch((err: Response) => { throw err; });
     };
 
-
+    updateBookmark(bookmark: SingleBookmark) {
+        const bmJson = JSON.stringify(bookmark);
+        return this.http.patch(`${this.baseUrl}/bookmarks/${bookmark.id}.json`, bmJson)
+        .toPromise();
+    }
 
     removeBookmark(bookmark: SingleBookmark) {
-        const bmJson = JSON.stringify(bookmark);
+        const bmJson = JSON.stringify({
+            title: bookmark.title,
+            url: bookmark.url
+        });
         return this.http.delete(`${this.baseUrl}/bookmarks/${bookmark.id}.json`, bmJson)
             .map((res: Response) => res.json())
             .catch((err: Response) => { throw err; });

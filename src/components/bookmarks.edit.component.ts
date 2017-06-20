@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BookmarksService } from '../services/bookmarks.service';
-import { NewBookmark } from '../interface/newbookmark.interface';
+import { SingleBookmark } from '../interface/bookmark.interface';
 
 // import { Observable } from 'rxjs/Observable';
 
@@ -28,7 +28,12 @@ import { NewBookmark } from '../interface/newbookmark.interface';
 						<div class="form-group">
 							<div class="col-xs-12 col-sm-10 col-sm-offset-2 text-right">
 								<button (click)="onBookmarkSave()" type="submit" class="btn btn-primary">
-									Save
+									<i class="glyphicon glyphicon-pencil"></i>
+									<span class="hidden-xs">Save</span>
+								</button>
+								<button (click)="onFieldsClear()" type="button" class="btn btn-warning">
+									<i class="glyphicon glyphicon-trash"></i>
+									<span class="hidden-xs">Clear</span>
 								</button>
 							</div>
 						</div>
@@ -39,14 +44,24 @@ import { NewBookmark } from '../interface/newbookmark.interface';
 })
 export class BookmarkEditComponent {
 
-	@Input() newBookmark: NewBookmark = {
+	@Input() newBookmark: SingleBookmark = {
+		id: '',
 		title: '',
 		url: ''
 	};
 	@Output() saveBmEventEmit = new EventEmitter();
+	@Output() clearBmEventEmit = new EventEmitter();
 
 	onBookmarkSave() {
 		this.saveBmEventEmit.emit(this.newBookmark);
+	}
+
+	onFieldsClear() {
+		////////////////////////////////////////////////////////
+		// emit must pass sth, if nothing need to be passed,  //
+		// please pass null.                                  //
+		////////////////////////////////////////////////////////
+		this.clearBmEventEmit.emit(null);
 	}
 
 }

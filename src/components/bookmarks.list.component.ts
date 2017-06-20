@@ -9,26 +9,30 @@ import { SingleBookmark } from '../interface/bookmark.interface';
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
-					<th>Id</th>
+					<th class="hidden-xs">Id</th>
 					<th>Title</th>
+					<th>Update</th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr *ngFor="let eachBookmark of bookmarksList" >
-					<td>{{eachBookmark.id}}</td>
+					<td class="hidden-xs">{{eachBookmark.id}}</td>
 					<td>
 						<a [href]="eachBookmark.url" target="_blank">
 							{{eachBookmark.title}}
 						</a>
 					</td>
 					<td>
-						<!-- <button (click)="onBmEdit(eachBookmark)" type="button" class="btn btn-danger">
-							Update
-						</button> -->
+						<button (click)="onBmEdit(eachBookmark)" type="button" class="btn btn-danger">
+							<i class="glyphicon glyphicon-upload"></i>
+							<span class="hidden-xs">Update</span>
+						</button>
 					</td>
 					<td>
 						<button (click)="onBmRemove(eachBookmark)" type="button" class="btn btn-warning">
-							Delete
+							<i class="glyphicon glyphicon-remove"></i>
+							<span class="hidden-xs">Delete</span>
 						</button>
 					</td>
 				</tr>
@@ -39,10 +43,14 @@ import { SingleBookmark } from '../interface/bookmark.interface';
 export class BookmarksListComponent {
 
 	@Input() bookmarksList: SingleBookmark[] = [];
+	@Output() updateBmEventEmit = new EventEmitter();
 	@Output() removeBmEventEmit = new EventEmitter();
 
+	onBmEdit(culledBookmark: SingleBookmark) {
+		this.updateBmEventEmit.emit(culledBookmark);
+	}
+
 	onBmRemove(culledBookmark: SingleBookmark) {
-		console.log('45 -- list -- culledBookmark is: ', culledBookmark);
 		this.removeBmEventEmit.emit(culledBookmark);
 	}
 

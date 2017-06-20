@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BookmarksService } from '../services/bookmarks.service';
-import { NewBookmark } from '../interface/newbookmark.interface';
+import { SingleBookmark } from '../interface/bookmark.interface';
 
 // import { Observable } from 'rxjs/Observable';
 
@@ -36,7 +36,8 @@ import { NewBookmark } from '../interface/newbookmark.interface';
 })
 export class BookmarkErrHandlerComponent {
 
-	newBookmark: NewBookmark = {
+	@Input() newBookmark: SingleBookmark = {
+		id: '',
 		title: '',
 		url: ''
 	};

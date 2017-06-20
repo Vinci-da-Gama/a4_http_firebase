@@ -6,7 +6,7 @@ import { GeneralEntryComponent } from './entry.component';
 import { BookmarksContainerComponent } from './components/bookmarks.container.component';
 import { BookmarksListComponent } from './components/bookmarks.list.component';
 import { BookmarkEditComponent } from './components/bookmarks.edit.component';
-import { BookmarkErrHandlerComponent } from './components/bookmarks.ErrorHandling';
+import { BookmarkErrHandlerComponent } from './components/bookmarks.ErrorHandling.component';
 
 @NgModule({
 	imports: [BrowserModule, FormsModule, HttpModule],

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BookmarksService } from '../services/bookmarks.service';
 import { SingleBookmark } from '../interface/bookmark.interface';
-import { NewBookmark } from '../interface/newbookmark.interface';
+// import { NewBookmark } from '../interface/newbookmark.interface';
 
 // import { Observable } from 'rxjs/Observable';
 
@@ -11,13 +11,16 @@ import { NewBookmark } from '../interface/newbookmark.interface';
 	template: `
 		<div class="row">
 			<div class="col-xs-12 col-sm-6">
-				<bookmark-edit (saveBmEventEmit)="SaveBookmark($event)"></bookmark-edit>
+				<bookmark-edit (saveBmEventEmit)="SaveBookmark($event)"
+					[newBookmark]="editableBookmark" (clearBmEventEmit)="ClearFields()">
+				</bookmark-edit>
 			</div>
 			<!-- <div class="col-xs-12 col-sm-6">
 				<bookmark-error-handling></bookmark-error-handling>
 			</div> -->
 		</div>
-		<bookmark-list [bookmarksList]="bookmarks" (removeBmEventEmit)="RemoveSelectedBookmark($event)">
+		<bookmark-list [bookmarksList]="bookmarks" (updateBmEventEmit)="UpdateBookmark($event)"
+			(removeBmEventEmit)="RemoveSelectedBookmark($event)">
 		</bookmark-list>
   	`,
 })
@@ -30,14 +33,33 @@ export class BookmarksContainerComponent {
 		this.bmReload();
 	}
 
-	// onBmarkEdit(bm: SingleBookmark) {
-	// 	console.log('60 -- bm is: ', bm);
-	// 	this.editableBookmark = Object.assign({}, bm);
-	// }
+	SaveBookmark(bookmark: SingleBookmark) {
+		let isUpdate: Boolean = bookmark.id !== '' && bookmark.id !== null && bookmark.id !== undefined;
+		isUpdate = isUpdate && bookmark.id.length > 10;
+		if (isUpdate) {
+			////////////////////////////////////
+			// only existing bookmark has id, //
+			// so it is update.               //
+			////////////////////////////////////
+			this.bookmarkService.updateBookmark(bookmark)
+			.then(() => this.bmReload());
+		} else {
+			this.bookmarkService.postNewBookmark(bookmark)
+			.then(() => this.bmReload());
+		}
+		this.ClearFields();
+	}
 
-	SaveBookmark(bookmark: NewBookmark) {
-		this.bookmarkService.postNewBookmark(bookmark)
-		.then(() => this.bmReload());
+	private ClearFields() {
+		this.editableBookmark = new Object();
+	}
+
+	UpdateBookmark(bookmark: SingleBookmark) {
+		//////////////////////////////////////////////////////////////
+		// use Object.assign to create new obj, otherwise, it will  //
+		// modified both field, cause they share same memery block. //
+		//////////////////////////////////////////////////////////////
+		this.editableBookmark = Object.assign({}, bookmark);
 	}
 
 	RemoveSelectedBookmark(bookmark: SingleBookmark) {
